@@ -1,0 +1,16 @@
+Create trigger guestLisamine
+on guest
+for insert
+as
+insert logi(kuupaev, kasutaja, andmed, tegevus)
+select getdate(), user, 
+concat(inserted.first_name, ', ', inserted.last_name),
+'guest on lisatud'
+from inserted
+
+--kontroll
+
+INSERT INTO guest(first_name, last_name, member_since)
+VALUES ('Anna', 'Sohromova', '2023-08-29');
+select * from guest;
+select * from logi;
