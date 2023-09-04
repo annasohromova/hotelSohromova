@@ -24,4 +24,15 @@ select * from guest;
 select * from logi;
 end;
 --käivitamine
-exec deleteGuest 1;Ss
+exec deleteGuest 1;
+
+
+
+--Kasutajate (guest)arvu leidmine
+CREATE PROCEDURE allGuest
+AS
+BEGIN
+    SELECT COUNT(*) AS id FROM guest;
+END;
+--käivitamine
+exec allGuest;
