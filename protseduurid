@@ -11,3 +11,17 @@ select * from logi;
 end;
 --käivitamine
 exec lisaGuest 'Anna', 'Sohromova', '2006-02-21';
+
+--Kustutamine ja SELECT
+CREATE PROCEDURE deleteGuest
+@id int
+as 
+begin
+select * from guest;
+delete from guest
+where @id=id;
+select * from guest;
+select * from logi;
+end;
+--käivitamine
+exec deleteGuest 1;Ss
