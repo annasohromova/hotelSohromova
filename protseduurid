@@ -1,0 +1,13 @@
+CREATE PROCEDURE lisaGuest
+@fname varchar(100),
+@lname varchar(100),
+@sinse date
+as
+begin
+insert into guest(first_name, last_name, member_since)
+values(@fname, @lname, @sinse);
+select * from guest;
+select * from logi;
+end;
+--käivitamine
+exec lisaGuest 'Anna', 'Sohromova', '2006-02-21';
