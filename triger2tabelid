@@ -59,3 +59,35 @@ USER
 FROM INSERTED i
 INNER JOIN room_type rt ON i.room_type_id = rt.id;
 END;
+
+INSERT INTO reserved_room (number_of_rooms, room_type_id, status)
+VALUES (221, 1, 'hõivatud');
+select * from room_type;
+select * from reserved_room;
+select * from logi;
+
+CREATE TRIGGER roomiUuendamine
+ON room_type
+AFTER UPDATE
+AS
+BEGIN
+UPDATE rt
+SET rt.description = i.description
+FROM room_type rt
+INNER JOIN inserted i ON rt.id = i.id;
+
+UPDATE rr
+SET rr.room_type_id = i.id, rr.status = CONCAT('Uuendatud roomi tüüp - ', i.description)
+FROM reserved_room rr
+INNER JOIN inserted i ON rr.room_type_id = i.id
+INNER JOIN deleted d ON rr.room_type_id = d.id;
+END;
+
+
+
+--kontroll
+UPDATE room_type
+SET description = 'Tuba koolivaatega'
+WHERE id = 1;
+SELECT * FROM reserved_room;
+select * from room_type;
