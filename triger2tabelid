@@ -91,3 +91,35 @@ SET description = 'Tuba koolivaatega'
 WHERE id = 1;
 SELECT * FROM reserved_room;
 select * from room_type;
+--------------------------------------------------
+LOCALHOST XAMPP
+
+
+
+
+triger roomiLisamine
+
+INSERT INTO logi (kuupaev, andmed, kasutaja)
+SELECT NOW(),
+CONCAT('Uued andmed - ', NEW.description, ', ', NEW.max_capacity),
+USER()
+FROM room_type AS rm
+WHERE rm.id = NEW.id;
+
+
+
+CREATE TRIGGER `roomiLisamine` AFTER INSERT ON `room_type` FOR EACH ROW INSERT INTO logi (kuupaev, andmed, kasutaja) 
+SELECT NOW(), CONCAT('Uued andmed - ', NEW.description, ', ', NEW.max_capacity), 
+USER() FROM room_type AS rm WHERE rm.id = NEW.id; 
+
+
+INSERT INTO logi (kuupaev, andmed, kasutaja)
+SELECT NOW(),
+CONCAT('Vanad andмед - ', OLD.status, ', ', 'Uued andmed - ', NEW.status),
+USER()
+FROM reserved_room
+WHERE reserved_room.id = NEW.room_type_id;
+
+CREATE TRIGGER `statusUuendamine` BEFORE UPDATE ON `reserved_room` FOR EACH ROW INSERT INTO logi (kuupaev, andmed, kasutaja) 
+SELECT NOW(), CONCAT('Vanad andmed - ', OLD.status, ', ', 'Uued andmed - ', NEW.status), USER() 
+FROM reserved_room WHERE reserved_room.id = NEW.room_type_id; 
