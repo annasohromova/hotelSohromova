@@ -4,6 +4,34 @@ description varchar(80),
 max_capacity int
 );
 
+create table logi(
+id int primary key identity(1,1),
+andmed TEXT,
+kuupaev datetime,
+kasutaja varchar(100)
+);
+
+
+INSERT INTO room_type(description, max_capacity)
+VALUES ('Tuba metsavaatega', 2);
+select * from room_type;
+
+
+INSERT INTO room_type(description, max_capacity)
+VALUES ('Tuba merevaatega', 2);
+select * from room_type;
+
+INSERT INTO room_type(description, max_capacity)
+VALUES ('Tuba metsavaatega', 2);
+select * from room_type;
+
+INSERT INTO room_type(description, max_capacity)
+VALUES ('Tuba metsavaatega', 3);
+select * from room_type;
+
+INSERT INTO room_type(description, max_capacity)
+VALUES ('Tuba merevaatega', 1);
+select * from room_type;
 
 
 CREATE TABLE reserved_room(
@@ -14,3 +42,20 @@ foreign key (room_type_id) references room_type(id),
 status varchar(20)
 );
 
+INSERT INTO reserved_room(number_of_rooms, room_type_id, status)
+VALUES (225, 5, 'hõivatud');
+select * from reserved_room;
+
+
+CREATE TRIGGER roomiLisamine
+ON reserved_room
+AFTER INSERT
+AS
+BEGIN
+INSERT INTO logi (kuupaev, andmed, kasutaja)
+SELECT GETDATE(),
+CONCAT('Reserved room added with ID: ', i.id, ' - Room Type: ', rt.description, ' - Max Capacity: ', rt.max_capacity),
+USER 
+FROM INSERTED i
+INNER JOIN room_type rt ON i.room_type_id = rt.id;
+END;
