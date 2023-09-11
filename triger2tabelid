@@ -1,1 +1,16 @@
+CREATE TABLE room_type(
+id int not null Primary key IDENTITY(1,1),
+description varchar(80),
+max_capacity int
+);
+
+
+
+CREATE TABLE reserved_room(
+id int not null Primary key IDENTITY(1,1),
+number_of_rooms int,
+room_type_id int,
+foreign key (room_type_id) references room_type(id),
+status varchar(20)
+);
 
