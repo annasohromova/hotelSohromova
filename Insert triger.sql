@@ -1,4 +1,4 @@
-Create trigger guestLisamine
+Create trigger guestLisamine --loome uus trigger tabelist guest
 on guest
 for insert
 as
@@ -10,7 +10,7 @@ from inserted
 
 --kontroll
 
-INSERT INTO guest(first_name, last_name, member_since)
+INSERT INTO guest(first_name, last_name, member_since)--lisame uued väärtused
 VALUES ('Anna', 'Sohromova', '2023-08-29');
 select * from guest;
 select * from logi;
@@ -18,7 +18,7 @@ select * from logi;
 
 
 
-CREATE TRIGGER roomUuendamine
+CREATE TRIGGER roomUuendamine--loome uus trigger mis näitab, millal me vahetasime väärtused tabelis room
 ON room
 AFTER UPDATE
 AS
