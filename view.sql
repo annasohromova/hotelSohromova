@@ -1,4 +1,4 @@
-create table tblEmployee
+create table tblEmployee--loome tabeli
 (
 ID int Primary Key,
 Name varchar(50),
@@ -7,13 +7,13 @@ Gender varchar(10),
 DepartmentID int, 
 )
 
-create table tblDepartment
+create table tblDepartment--loome tabeli
 (
 DeptID int primary key,
 DeptName varchar(20)
 )
 
-Insert into tblDepartment values(1, 'IT')
+Insert into tblDepartment values(1, 'IT')--lisame väärtusi
 Insert into tblDepartment values(2, 'Payroll')
 Insert into tblDepartment values(3, 'HR')
 Insert into tblDepartment values(4, 'Admin')
@@ -33,7 +33,7 @@ from tblEmployee
 inner join tblDepartment
 on tblEmployee.DepartmentID = tblDepartment.DeptID
 
-create View vWEEmployeesByDepartment
+create View vWEEmployeesByDepartment--loome uus view tabelist tblEmployee
 as
 select ID, Name, Salary, Gender, DeptName
 from tblEmployee
@@ -43,7 +43,7 @@ on tblEmployee.DepartmentID = tblDepartment.DeptID
 
 select * from vWEEmployeesByDepartment;
 
-create View vWITDepartment_Employees
+create View vWITDepartment_Employees --loome uus view
 as
 select ID, Name, Salary, Gender, DeptName
 from tblEmployee
@@ -52,14 +52,14 @@ on tblEmployee.DepartmentID = tblDepartment.DeptID
 where tblDepartment.DeptName = 'IT'
 select * from vWITDepartment_Employees
 
-create view vWEmployeesNonConfidentalData
+create view vWEmployeesNonConfidentalData--loome uus view
 as
 Select ID, Name, Gender, DeptName
 from tblEmployee
 inner join tblDepartment
 on tblEmployee.DepartmentID = tblDepartment.DeptID
 
-create view vWEmployeesCountByDepartment
+create view vWEmployeesCountByDepartment--loome uus view
 as
 select DeptName, count(ID) as TotalEmployees
 from tblEmployee
@@ -70,20 +70,20 @@ group by DeptName
 select * from vWEmployeesCountByDepartment
 
 
-create view vWEmployeesDataExceptSalary
+create view vWEmployeesDataExceptSalary--loome uus view
 as
 Select ID, Name, Gender, DepartmentID
 from tblEmployee
 select * from vWEmployeesDataExceptSalary
 
-update vWEmployeesDataExceptSalary
+update vWEmployeesDataExceptSalary--uuendame väärtusi tabelis
 set Name='Mikey' where id=2
 
 
-delete from vWEmployeesDataExceptSalary where id=2
-insert into vWEmployeesDataExceptSalary values (2, 'Mikey', 'Male', 2)
+delete from vWEmployeesDataExceptSalary where id=2 --kustutame id 2
+insert into vWEmployeesDataExceptSalary values (2, 'Mikey', 'Male', 2) --lisame tabelisse uus väärtus
 
-create view vwEmployeeDetailsByDepartment
+create view vwEmployeeDetailsByDepartment--loome uus view
 as 
 select ID, Name, Salary, Gender, DeptName
 from tblEmployee
