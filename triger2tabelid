@@ -1,10 +1,10 @@
-CREATE TABLE room_type(
+CREATE TABLE room_type(--loome uus tabel room_type
 id int not null Primary key IDENTITY(1,1),
 description varchar(80),
 max_capacity int
 );
 
-create table logi(
+create table logi(--loome uus tabel logi
 id int primary key identity(1,1),
 andmed TEXT,
 kuupaev datetime,
@@ -12,7 +12,7 @@ kasutaja varchar(100)
 );
 
 
-INSERT INTO room_type(description, max_capacity)
+INSERT INTO room_type(description, max_capacity)--lisame väärtusi
 VALUES ('Tuba metsavaatega', 2);
 select * from room_type;
 
@@ -34,7 +34,7 @@ VALUES ('Tuba merevaatega', 1);
 select * from room_type;
 
 
-CREATE TABLE reserved_room(
+CREATE TABLE reserved_room(--loome uus tabel reserved_room
 id int not null Primary key IDENTITY(1,1),
 number_of_rooms int,
 room_type_id int,
@@ -47,7 +47,7 @@ VALUES (225, 5, 'hõivatud');
 select * from reserved_room;
 
 
-CREATE TRIGGER roomiLisamine
+CREATE TRIGGER roomiLisamine --loome uus trigger, mis näitab kui reserved room oli lisanud koos ID
 ON reserved_room
 AFTER INSERT
 AS
@@ -66,7 +66,7 @@ select * from room_type;
 select * from reserved_room;
 select * from logi;
 
-CREATE TRIGGER roomiUuendamine
+CREATE TRIGGER roomiUuendamine--loome trigger, mis näitab kus oli uuendamine
 ON room_type
 AFTER UPDATE
 AS
