@@ -1,4 +1,4 @@
-CREATE PROCEDURE lisaGuest
+CREATE PROCEDURE lisaGuest --loome uus protseduur, saame lisama uut väärtusi
 @fname varchar(100),
 @lname varchar(100),
 @sinse date
